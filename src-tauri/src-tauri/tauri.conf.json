@@ -1,0 +1,17 @@
+{
+  "productName": "OPS Recorder",
+  "version": "0.1.0",
+  "identifier": "com.ops.recorder",
+  "build": {
+    "frontendDist": "../frontend/dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "OPS Recorder",
+        "width": 1200,
+        "height": 800
+      }
+    ]
+  }
+}

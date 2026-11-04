@@ -1,0 +1,38 @@
+# Node.js dependencies
+node_modules/
+**/node_modules/
+
+# Rust build artifacts
+target/
+**/target/
+
+# Debug and error logs
+*.log
+hw_stderr.txt
+
+# Build outputs
+dist/
+**/dist/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.log
+
+# Local output files
+*.mp4
+*.mkv
+*.avi
