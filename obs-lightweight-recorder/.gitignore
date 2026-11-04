@@ -1,0 +1,25 @@
+# Rust build artifacts
+/target/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary files
+*.tmp
+*.log
+
+# Local output files
+*.mp4
+*.mkv
+*.avi

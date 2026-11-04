@@ -1,0 +1,36 @@
+[package]
+name = "obs-lightweight-recorder"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wgc = "3"
+windows = { version = "0.62", features = [
+    "Win32_Foundation",
+    "Win32_System_Com",
+    "Win32_System_Diagnostics_Debug",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Memory",
+    "Win32_System_Registry",
+    "Win32_System_SystemInformation",
+    "Win32_System_SystemServices",
+    "Win32_System_Threading",
+    "Win32_Graphics_Direct3D11",
+    "Win32_Graphics_Dxgi",
+    "Win32_Graphics_Gdi",
+    "Win32_Media_MediaFoundation",
+    "Win32_UI_WindowsAndMessaging",
+    "Graphics_Capture",
+] }
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+thiserror = "2.0"
+# win-native-media: WGC → H.264 → MP4 pipeline, no FFmpeg needed
+# TODO: Uncomment once compatibility verified
+# win-native-media = "0.1"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
