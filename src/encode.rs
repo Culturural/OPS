@@ -8,10 +8,13 @@ use anyhow::Result;
 use std::time::Instant;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 use crate::mux::EncoderType;
 
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
 /// Encoded video packet ready for muxing.
 pub struct EncodedPacket {
     /// H.264 NAL unit bitstream data.
@@ -23,6 +26,9 @@ pub struct EncodedPacket {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 /// Hardware encoder selection result.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum EncoderType {
@@ -37,6 +43,7 @@ pub enum EncoderType {
 }
 
 /// Video encoder wrapper.
+<<<<<<< HEAD
 =======
 /// Video encoder wrapper.
 ///
@@ -44,6 +51,8 @@ pub enum EncoderType {
 /// This module packages captured frames into packets for the muxer and tracks
 /// encoder selection for reporting purposes.
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
 pub struct Encoder {
     encoder_type: EncoderType,
     width: u32,
@@ -56,6 +65,9 @@ pub struct Encoder {
 
 impl Encoder {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
     /// Create a new encoder, detecting and selecting the best available hardware encoder.
     pub fn new(width: u32, height: u32, fps: u32) -> Result<Self> {
         let encoder_type = Self::detect_best_encoder()?;
@@ -64,10 +76,13 @@ impl Encoder {
             encoder_type
         );
 
+<<<<<<< HEAD
 =======
     /// Create a new encoder with the specified type.
     pub fn new(width: u32, height: u32, fps: u32, encoder_type: EncoderType) -> Result<Self> {
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
         Ok(Self {
             encoder_type,
             width,
@@ -80,30 +95,42 @@ impl Encoder {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
     /// Detect the best available hardware encoder.
     fn detect_best_encoder() -> Result<EncoderType> {
         // TODO: Implement actual hardware detection via DirectX adapter enumeration
         // For now, default to software fallback which will be implemented with Media Foundation
         Ok(EncoderType::Software)
+<<<<<<< HEAD
 =======
     /// Get encoder type.
     pub fn encoder_type(&self) -> EncoderType {
         self.encoder_type
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
     }
 
     /// Get encoder type name for display.
     pub fn name(&self) -> String {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
         match self.encoder_type {
             EncoderType::Nvenc => "NVENC (NVIDIA)".to_string(),
             EncoderType::Amf => "AMF (AMD)".to_string(),
             EncoderType::QuickSync => "QuickSync (Intel)".to_string(),
             EncoderType::Software => "Software (CPU)".to_string(),
         }
+<<<<<<< HEAD
 =======
         self.encoder_type.display_name().to_string()
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
     }
 
     /// Encode a captured frame into H.264 packets.
@@ -112,10 +139,14 @@ impl Encoder {
         self.frame_count += 1;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // The Media Foundation sink writer (owned by the muxer) performs the real
 =======
         // The ffmpeg subprocess (owned by the muxer) performs the real
 >>>>>>> b7baee3 (Milestone 6)
+=======
+        // The Media Foundation sink writer (owned by the muxer) performs the real
+>>>>>>> origin/master
         // H.264 encoding. This stage packages the captured BGRA frame and its
         // timestamp as a packet for the muxer to encode and write.
         Ok(Some(EncodedPacket {
@@ -144,9 +175,13 @@ impl Encoder {
 impl Default for Encoder {
     fn default() -> Self {
 <<<<<<< HEAD
+<<<<<<< HEAD
         Self::new(1280, 720, 30).unwrap()
 =======
         Self::new(1280, 720, 30, EncoderType::Libx264).unwrap()
 >>>>>>> b7baee3 (Milestone 6)
+=======
+        Self::new(1280, 720, 30).unwrap()
+>>>>>>> origin/master
     }
 }

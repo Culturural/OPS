@@ -102,6 +102,9 @@ veryfast produces smallest files (~20% smaller than medium). Note: live desktop 
 - [x] `--window-title` CLI option for game-specific capture
 - [x] Desktop capture (`from_monitor`) preserved as default
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 - [ ] Benchmark desktop vs window capture overhead
 - [ ] Document minimized-window behavior (WGC may stop delivering frames when minimized)
 - [ ] Anti-cheat safety: WGC is a supported API, no hooking/injection
@@ -109,6 +112,7 @@ veryfast produces smallest files (~20% smaller than medium). Note: live desktop 
 ## Verified CLI Usage
 ```
 cargo run --release -- capture output.mp4                    # balanced profile, CRF 21, veryfast
+<<<<<<< HEAD
 =======
 - [x] Benchmark desktop vs window capture overhead (desktop: ~28 FPS; window capture with Notepad: very slow, needs further testing with stable windows)
 - [x] Document minimized-window behavior (WGC continues delivering frames at ~2-5 FPS when minimized, vs ~30 FPS normal)
@@ -154,6 +158,8 @@ cargo run --release -- capture output.mp4                    # balanced profile,
 ```
 cargo run --release -- capture output.mp4                    # balanced profile, CRF 21, veryfast, libx264
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
 cargo run --release -- capture output.mp4 --profile quality  # quality profile, CRF 18, medium
 cargo run --release -- capture output.mp4 --profile small    # small profile, CRF 24, veryfast
 cargo run --release -- capture output.mp4 --crf 22 --preset veryfast  # manual override
@@ -161,6 +167,9 @@ cargo run --release -- capture output.mp4 --duration 10 --fps 60  # custom durat
 cargo run --release -- capture output.mp4 --width 1280 --height 720 # custom resolution
 cargo run --release -- capture output.mp4 --window-title "Overwatch"  # game-specific capture
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 cargo run --release -- capture output.mp4 --window-title "Chrome" --profile performance  # window + perf profile
 ```
 
@@ -169,6 +178,7 @@ cargo run --release -- capture output.mp4 --window-title "Chrome" --profile perf
 - Quality (CRF 18, medium, 1080p30, ~4.7s): ~1.6MB
 - Small (CRF 24, veryfast, 1080p30, ~3.5s): ~0.8MB
 - Override (CRF 22, veryfast, 1080p30, ~3.1s): ~0.9MB
+<<<<<<< HEAD
 =======
 cargo run --release -- capture output.mp4 --encoder nvenc  # NVIDIA NVENC (requires NVIDIA GPU)
 cargo run --release -- capture output.mp4 --encoder amf    # AMD AMF (requires AMD GPU)
@@ -308,3 +318,5 @@ cargo run --release -- capture output.mp4 --encoder nvenc  # FAILS early if NVEN
 - Hardware detection displays in General Settings
 
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master

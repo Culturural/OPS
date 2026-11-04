@@ -2,6 +2,7 @@
 //!
 //! Muxes captured video into an MP4 container by piping raw BGRA frames to an
 <<<<<<< HEAD
+<<<<<<< HEAD
 //! `ffmpeg` subprocess, which performs H.264 encoding (libx264) and MP4 muxing,
 //! producing a playable MP4 file.
 =======
@@ -14,12 +15,17 @@
 //!   - h264_amf   (AMD AMF, QP-based)
 //!   - h264_qsv   (Intel Quick Sync, QP/ICQ-based)
 >>>>>>> b7baee3 (Milestone 6)
+=======
+//! `ffmpeg` subprocess, which performs H.264 encoding (libx264) and MP4 muxing,
+//! producing a playable MP4 file.
+>>>>>>> origin/master
 
 use anyhow::{Context, Result};
 use std::io::Write;
 use std::path::Path;
 use std::process::{Command, Stdio};
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /// Encoding preset for x264.
 =======
@@ -74,6 +80,9 @@ impl EncoderType {
 
 /// Encoding preset for software x264.
 >>>>>>> b7baee3 (Milestone 6)
+=======
+/// Encoding preset for x264.
+>>>>>>> origin/master
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum EncodingPreset {
     Ultrafast,
@@ -136,10 +145,14 @@ pub enum EncodingProfile {
 
 impl EncodingProfile {
 <<<<<<< HEAD
+<<<<<<< HEAD
     /// Returns the default CRF and preset for this profile.
 =======
     /// Returns the default CRF/CQP and preset for this profile when using libx264.
 >>>>>>> b7baee3 (Milestone 6)
+=======
+    /// Returns the default CRF and preset for this profile.
+>>>>>>> origin/master
     pub fn defaults(self) -> (u32, EncodingPreset) {
         match self {
             EncodingProfile::Quality => (18, EncodingPreset::Medium),
@@ -164,17 +177,21 @@ impl EncodingProfile {
 
 /// Encoding configuration for H.264/MP4 output.
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 ///
 /// CRF is specific to x264-style rate control. Hardware encoders (NVENC, AMF, QSV)
 /// use different quality controls (CQP, ICQ, vendor-specific settings) and may not
 /// accept CRF at all. Do not apply x264 CRF assumptions to hardware encoders.
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
 #[derive(Debug, Clone)]
 pub struct EncodingConfig {
     pub width: u32,
     pub height: u32,
     pub fps: u32,
+<<<<<<< HEAD
 <<<<<<< HEAD
     pub crf: u32,
 =======
@@ -185,6 +202,9 @@ pub struct EncodingConfig {
     /// Ignored by libx264.
     pub quality_level: u32,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+    pub crf: u32,
+>>>>>>> origin/master
     pub preset: EncodingPreset,
 }
 
@@ -193,12 +213,16 @@ impl EncodingConfig {
     pub fn new(
         profile: EncodingProfile,
 <<<<<<< HEAD
+<<<<<<< HEAD
         crf: Option<u32>,
 =======
         encoder_type: EncoderType,
         crf: Option<u32>,
         quality_level: Option<u32>,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+        crf: Option<u32>,
+>>>>>>> origin/master
         preset: Option<EncodingPreset>,
         width: u32,
         height: u32,
@@ -209,14 +233,19 @@ impl EncodingConfig {
         let preset = preset.unwrap_or(default_preset);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         // Validate CRF range (x264 valid range is 0-51)
 =======
         // Validate CRF range (x264 valid range is 0-51) — only applies to libx264.
 >>>>>>> b7baee3 (Milestone 6)
+=======
+        // Validate CRF range (x264 valid range is 0-51)
+>>>>>>> origin/master
         if crf > 51 {
             anyhow::bail!("CRF must be between 0 and 51, got {}", crf);
         }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
         // Validate quality level for hardware encoders (typical range 0-51).
@@ -229,6 +258,8 @@ impl EncodingConfig {
         }
 
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
         // Validate resolution dimensions are even (required for yuv420p)
         if width > 0 && width % 2 != 0 {
             anyhow::bail!("Width must be an even number for yuv420p output, got {}", width);
@@ -247,12 +278,16 @@ impl EncodingConfig {
             height,
             fps,
 <<<<<<< HEAD
+<<<<<<< HEAD
             crf,
 =======
             encoder_type,
             crf,
             quality_level,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+            crf,
+>>>>>>> origin/master
             preset,
         })
     }
@@ -268,19 +303,26 @@ pub struct Muxer {
     config: EncodingConfig,
     frames_written: u64,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     encoder_type: EncoderType,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
 }
 
 impl Muxer {
     /// Create a new MP4 muxer.
     pub fn new(output_path: &str, config: &EncodingConfig) -> Result<Self> {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
         eprintln!(
             "Muxer: initializing MP4 output at {} ({}x{}@{}, CRF={}, preset={})",
             output_path, config.width, config.height, config.fps, config.crf,
             config.preset.as_str()
+<<<<<<< HEAD
 =======
         let encoder_type = config.encoder_type;
 
@@ -289,6 +331,8 @@ impl Muxer {
             output_path, config.width, config.height, config.fps,
             encoder_type.display_name()
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
         );
 
         if let Some(parent) = Path::new(output_path).parent() {
@@ -296,6 +340,9 @@ impl Muxer {
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
         let mut child = Command::new("ffmpeg")
             .args([
                 "-y",
@@ -323,6 +370,7 @@ impl Muxer {
                 "mp4",
                 output_path,
             ])
+<<<<<<< HEAD
 =======
         let mut args: Vec<String> = Vec::new();
         args.push("-y".to_string());
@@ -391,10 +439,13 @@ impl Muxer {
         let mut child = Command::new("ffmpeg")
             .args(&args)
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
             .stdin(Stdio::piped())
             .stdout(Stdio::null())
             .stderr(Stdio::null())
             .spawn()
+<<<<<<< HEAD
 <<<<<<< HEAD
             .context("ffmpeg not found or failed to start (install ffmpeg and ensure it is on PATH)")?;
 =======
@@ -403,6 +454,9 @@ impl Muxer {
                 encoder_type.codec_name()
             ))?;
 >>>>>>> b7baee3 (Milestone 6)
+=======
+            .context("ffmpeg not found or failed to start (install ffmpeg and ensure it is on PATH)")?;
+>>>>>>> origin/master
 
         let stdin = child
             .stdin
@@ -415,9 +469,12 @@ impl Muxer {
             config: config.clone(),
             frames_written: 0,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             encoder_type,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
         })
     }
 
@@ -445,6 +502,7 @@ impl Muxer {
         self.frames_written
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
     /// Get the encoder type in use.
@@ -452,6 +510,8 @@ impl Muxer {
         self.encoder_type
     }
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
 }
 
 impl Drop for Muxer {

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 [package]
 name = "obs-lightweight-recorder"
 version = "0.1.0"
@@ -34,6 +37,7 @@ thiserror = "2.0"
 [profile.release]
 opt-level = "z"
 lto = true
+<<<<<<< HEAD
 codegen-units = 1
 =======
 [workspace]
@@ -52,3 +56,6 @@ opt-level = "z"
 lto = true
 codegen-units = 1
 >>>>>>> b7baee3 (Milestone 6)
+=======
+codegen-units = 1
+>>>>>>> origin/master

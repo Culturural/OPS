@@ -2,16 +2,22 @@
 //!
 //! Usage:
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 //!   recorder capture <output.mp4> [--crf 21] [--preset veryfast] [--profile balanced]
 //!
 //! Captures the screen via Windows Graphics Capture (WGC),
 //! encodes with H.264 via ffmpeg/libx264,
+<<<<<<< HEAD
 =======
 //!   recorder capture <output.mp4> [--crf 21] [--preset veryfast] [--profile balanced] [--encoder libx264]
 //!
 //! Captures the screen via Windows Graphics Capture (WGC),
 //! encodes with H.264 via ffmpeg (libx264, nvenc, amf, or qsv),
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
 //! and muxes to MP4.
 
 mod capture;
@@ -23,6 +29,7 @@ mod mux;
 use anyhow::{Context, Result};
 use clap::Parser;
 <<<<<<< HEAD
+<<<<<<< HEAD
 use std::time::Duration;
 
 use mux::{EncodingConfig, EncodingPreset, EncodingProfile};
@@ -33,6 +40,11 @@ use hardware::HardwareInfo;
 use mux::{EncodingConfig, EncodingPreset, EncodingProfile, EncoderType};
 use metrics::Metrics;
 >>>>>>> b7baee3 (Milestone 6)
+=======
+use std::time::Duration;
+
+use mux::{EncodingConfig, EncodingPreset, EncodingProfile};
+>>>>>>> origin/master
 
 /// Ultra-lightweight Windows game recorder.
 #[derive(Parser, Debug)]
@@ -73,10 +85,14 @@ enum Commands {
         window_title: Option<String>,
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
         /// Constant Rate Factor (0-51, lower = higher quality, default: 21 for balanced profile)
         #[arg(long)]
         crf: Option<u32>,
 
+<<<<<<< HEAD
 =======
         /// Encoder: auto, libx264, nvenc, amf, qsv (default: auto)
         #[arg(long, default_value_t = String::from("auto"))]
@@ -91,6 +107,8 @@ enum Commands {
         quality: Option<u32>,
 
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
         /// x264 encoding preset (default: veryfast for balanced profile)
         #[arg(long)]
         preset: Option<String>,
@@ -120,16 +138,21 @@ fn run() -> Result<()> {
             height,
             window_title,
 <<<<<<< HEAD
+<<<<<<< HEAD
             crf,
 =======
             encoder,
             crf,
             quality,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+            crf,
+>>>>>>> origin/master
             preset,
             profile,
         } => {
             capture_screen(
+<<<<<<< HEAD
 <<<<<<< HEAD
                 &output, duration, fps, width, height, window_title.as_deref(),
                 crf, preset, &profile,
@@ -146,6 +169,10 @@ fn run() -> Result<()> {
                 preset,
                 &profile,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+                &output, duration, fps, width, height, window_title.as_deref(),
+                crf, preset, &profile,
+>>>>>>> origin/master
             )
         }
     }
@@ -159,32 +186,45 @@ fn capture_screen(
     height: u32,
     window_title: Option<&str>,
 <<<<<<< HEAD
+<<<<<<< HEAD
     crf: Option<u32>,
 =======
     encoder_name: &str,
     crf: Option<u32>,
     quality: Option<u32>,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+    crf: Option<u32>,
+>>>>>>> origin/master
     preset: Option<String>,
     profile_name: &str,
 ) -> Result<()> {
     // ── Detect hardware ──────────────────────────────────────────
+<<<<<<< HEAD
 <<<<<<< HEAD
     let hw = hardware::HardwareInfo::detect()
         .context("Failed to detect hardware")?;
 =======
     let hw = HardwareInfo::detect().context("Failed to detect hardware")?;
 >>>>>>> b7baee3 (Milestone 6)
+=======
+    let hw = hardware::HardwareInfo::detect()
+        .context("Failed to detect hardware")?;
+>>>>>>> origin/master
     hw.print_summary();
 
     // Get recommended configuration from hardware detection
     let recommended = hw.recommend_config();
     eprintln!(
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
         "Auto-config: profile={} encoder={} crf={} preset={} reason: {}",
         recommended.profile.as_str(),
         recommended.encoder,
         recommended.crf,
+<<<<<<< HEAD
 =======
         "Auto-config: profile={} encoder={} crf={} quality={} preset={} reason: {}",
         recommended.profile.as_str(),
@@ -192,11 +232,14 @@ fn capture_screen(
         recommended.crf,
         recommended.quality_level,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
         recommended.preset,
         recommended.reason
     );
     eprintln!("");
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     // Resolve profile: CLI override takes precedence over recommendation
     let profile = if profile_name != "balanced" {
@@ -242,6 +285,11 @@ fn capture_screen(
     // Resolve profile: CLI override takes precedence over recommendation
     let profile = if profile_name != "balanced" {
 >>>>>>> b7baee3 (Milestone 6)
+=======
+    // Resolve profile: CLI override takes precedence over recommendation
+    let profile = if profile_name != "balanced" {
+        // User explicitly specified a profile
+>>>>>>> origin/master
         EncodingProfile::from_str(profile_name)
             .with_context(|| format!("Invalid profile: {}", profile_name))?
     } else {
@@ -261,6 +309,7 @@ fn capture_screen(
     };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Resolve CRF: CLI override > recommended > profile default
     let crf = crf.unwrap_or(recommended.crf);
 =======
@@ -268,6 +317,10 @@ fn capture_screen(
     let crf = crf.unwrap_or(recommended.crf);
     let quality_level = quality.unwrap_or(recommended.quality_level);
 >>>>>>> b7baee3 (Milestone 6)
+=======
+    // Resolve CRF: CLI override > recommended > profile default
+    let crf = crf.unwrap_or(recommended.crf);
+>>>>>>> origin/master
 
     // Resolve FPS: CLI value (has default of 30) > recommended
     let out_fps = if fps != 30 {
@@ -294,9 +347,13 @@ fn capture_screen(
 
     // Resolve output dimensions: CLI override if non-zero, otherwise capture resolution
 <<<<<<< HEAD
+<<<<<<< HEAD
     // (which may be overridden by recommended config)
 =======
 >>>>>>> b7baee3 (Milestone 6)
+=======
+    // (which may be overridden by recommended config)
+>>>>>>> origin/master
     let out_width = if width > 0 {
         width
     } else {
@@ -311,6 +368,7 @@ fn capture_screen(
     eprintln!("obs-lightweight-recorder v0.1.0");
     eprintln!("Output: {}", output);
 <<<<<<< HEAD
+<<<<<<< HEAD
     eprintln!("Profile: {:?}", profile);
     eprintln!("CRF: {}", crf);
 =======
@@ -319,16 +377,24 @@ fn capture_screen(
     eprintln!("CRF: {}", crf);
     eprintln!("Quality: {}", quality_level);
 >>>>>>> b7baee3 (Milestone 6)
+=======
+    eprintln!("Profile: {:?}", profile);
+    eprintln!("CRF: {}", crf);
+>>>>>>> origin/master
     eprintln!("Preset: {}", encoding_preset.as_str());
     eprintln!("FPS: {}", out_fps);
     eprintln!("Resolution: {}x{}", out_width, out_height);
     eprintln!("Duration: {}s (0 = unlimited)", duration_secs);
     eprintln!("");
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 
     let config = EncodingConfig::new(
         profile,
         Some(crf),
+<<<<<<< HEAD
 =======
     eprintln!("Recording... Press Ctrl+C to stop.");
     eprintln!("");
@@ -339,6 +405,8 @@ fn capture_screen(
         Some(crf),
         Some(quality_level),
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
         Some(encoding_preset),
         out_width,
         out_height,
@@ -352,6 +420,7 @@ fn capture_screen(
 
     // Initialize encoder
 <<<<<<< HEAD
+<<<<<<< HEAD
     let mut encoder = encode::Encoder::new(config.width, config.height, config.fps)
         .context("Failed to initialize encoder")?;
 =======
@@ -363,6 +432,10 @@ fn capture_screen(
     )
     .context("Failed to initialize encoder")?;
 >>>>>>> b7baee3 (Milestone 6)
+=======
+    let mut encoder = encode::Encoder::new(config.width, config.height, config.fps)
+        .context("Failed to initialize encoder")?;
+>>>>>>> origin/master
     eprintln!("Encoder initialized: {}", encoder.name());
 
     // Initialize muxer
@@ -370,6 +443,9 @@ fn capture_screen(
         .context("Failed to initialize muxer")?;
     eprintln!("Muxer initialized: {}", output);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
     eprintln!("");
     eprintln!("Recording... Press Ctrl+C to stop.");
     eprintln!("");
@@ -388,6 +464,7 @@ fn capture_screen(
                     if let Err(e) = muxer.write_video(&packet) {
                         eprintln!("Mux error (first frame): {:?}", e);
                         dropped += 1;
+<<<<<<< HEAD
 =======
 
     // Initialize metrics
@@ -411,16 +488,22 @@ fn capture_screen(
                         eprintln!("Mux error (first frame): {:?}", e);
                         metrics.frame_dropped();
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
                     }
                 }
                 Ok(None) => {}
                 Err(e) => {
                     eprintln!("Encode error (first frame): {:?}", e);
 <<<<<<< HEAD
+<<<<<<< HEAD
                     dropped += 1;
 =======
                     metrics.frame_dropped();
 >>>>>>> b7baee3 (Milestone 6)
+=======
+                    dropped += 1;
+>>>>>>> origin/master
                 }
             }
         }
@@ -441,10 +524,14 @@ fn capture_screen(
 
         // Frame rate limiting
 <<<<<<< HEAD
+<<<<<<< HEAD
         let now = std::time::Instant::now();
 =======
         let now = Instant::now();
 >>>>>>> b7baee3 (Milestone 6)
+=======
+        let now = std::time::Instant::now();
+>>>>>>> origin/master
         if now.duration_since(last_frame_time) < frame_interval {
             std::thread::sleep(Duration::from_millis(1));
             continue;
@@ -453,6 +540,9 @@ fn capture_screen(
 
         // Capture frame
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
         match cap.next_frame() {
             Ok(Some(frame)) => {
                 // Encode frame
@@ -462,6 +552,7 @@ fn capture_screen(
                         if let Err(e) = muxer.write_video(&packet) {
                             eprintln!("Mux error: {:?}", e);
                             dropped += 1;
+<<<<<<< HEAD
 =======
         let encode_start = Instant::now();
         match cap.next_frame() {
@@ -477,6 +568,8 @@ fn capture_screen(
                             eprintln!("Mux error: {:?}", e);
                             metrics.frame_dropped();
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
                         }
                     }
                     Ok(None) => {
@@ -485,10 +578,14 @@ fn capture_screen(
                     Err(e) => {
                         eprintln!("Encode error: {:?}", e);
 <<<<<<< HEAD
+<<<<<<< HEAD
                         dropped += 1;
 =======
                         metrics.frame_dropped();
 >>>>>>> b7baee3 (Milestone 6)
+=======
+                        dropped += 1;
+>>>>>>> origin/master
                     }
                 }
             }
@@ -498,6 +595,9 @@ fn capture_screen(
             Err(e) => {
                 eprintln!("Capture error: {:?}", e);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
                 dropped += 1;
             }
         }
@@ -515,6 +615,7 @@ fn capture_screen(
                 capture_fps,
                 encoder.fps(),
                 dropped
+<<<<<<< HEAD
 =======
                 metrics.frame_dropped();
             }
@@ -532,6 +633,8 @@ fn capture_screen(
                 metrics.avg_encode_ms(),
                 metrics.dropped()
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
             );
         }
     }
@@ -557,6 +660,9 @@ fn capture_screen(
 
     let elapsed = start_time.elapsed().as_secs_f64();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
     eprintln!(
         "Recording complete. {} frames in {:.2}s ({:.1} fps avg)",
         cap.frame_count(),
@@ -565,6 +671,7 @@ fn capture_screen(
     );
 
     Ok(())
+<<<<<<< HEAD
 }
 =======
     eprintln!("");
@@ -595,3 +702,6 @@ fn capture_screen(
     Ok(())
 }
 >>>>>>> b7baee3 (Milestone 6)
+=======
+}
+>>>>>>> origin/master

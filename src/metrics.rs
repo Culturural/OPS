@@ -1,10 +1,14 @@
 //! Performance metrics tracking.
 //!
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 //! Tracks capture FPS, encode FPS, dropped frames, and timing information.
 
 use std::time::Instant;
 
+<<<<<<< HEAD
 =======
 //! Tracks capture FPS, encode FPS, dropped frames, timing information,
 //! and CPU utilization. GPU utilization is not implemented because it
@@ -47,6 +51,8 @@ struct CpuSample {
 }
 
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
 /// Frame timing metrics for the recording pipeline.
 pub struct Metrics {
     start_time: Instant,
@@ -56,11 +62,14 @@ pub struct Metrics {
     total_encode_time_ns: u64,
     last_stats_print: Instant,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     cpu_samples: Vec<CpuSample>,
     last_cpu_sample: Option<CpuSample>,
     cpu_utilization: f64,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
 }
 
 impl Metrics {
@@ -74,11 +83,14 @@ impl Metrics {
             total_encode_time_ns: 0,
             last_stats_print: Instant::now(),
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             cpu_samples: Vec::new(),
             last_cpu_sample: None,
             cpu_utilization: 0.0,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
         }
     }
 
@@ -86,9 +98,12 @@ impl Metrics {
     pub fn frame_captured(&mut self) {
         self.frames_captured += 1;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         self.update_cpu_utilization();
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
     }
 
     /// Record an encoded frame with encoding time.
@@ -96,9 +111,12 @@ impl Metrics {
         self.frames_encoded += 1;
         self.total_encode_time_ns += encode_time_ns;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         self.update_cpu_utilization();
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
     }
 
     /// Record a dropped frame.
@@ -151,6 +169,7 @@ impl Metrics {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     /// Get current CPU utilization percentage (0.0 to 100.0).
     pub fn cpu_utilization(&self) -> f64 {
@@ -164,6 +183,8 @@ impl Metrics {
     }
 
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
     /// Check if it's time to print stats (every ~1 second).
     pub fn should_print_stats(&self) -> bool {
         self.last_stats_print.elapsed() >= std::time::Duration::from_secs(1)
@@ -178,15 +199,20 @@ impl Metrics {
     pub fn print_stats(&self) {
         eprint!(
 <<<<<<< HEAD
+<<<<<<< HEAD
             "\rCaptured: {} | Encoded: {} | CapFPS: {:.1} | EncFPS: {:.1} | AvgEnc: {:.2}ms | Dropped: {}",
 =======
             "\rCaptured: {} | Encoded: {} | CapFPS: {:.1} | EncFPS: {:.1} | AvgEnc: {:.2}ms | CPU: {:.1}% | Dropped: {}",
 >>>>>>> b7baee3 (Milestone 6)
+=======
+            "\rCaptured: {} | Encoded: {} | CapFPS: {:.1} | EncFPS: {:.1} | AvgEnc: {:.2}ms | Dropped: {}",
+>>>>>>> origin/master
             self.frames_captured,
             self.frames_encoded,
             self.capture_fps(),
             self.encode_fps(),
             self.avg_encode_ms(),
+<<<<<<< HEAD
 <<<<<<< HEAD
             self.frames_dropped
         );
@@ -243,6 +269,11 @@ impl Metrics {
         }
     }
 >>>>>>> b7baee3 (Milestone 6)
+=======
+            self.frames_dropped
+        );
+    }
+>>>>>>> origin/master
 }
 
 impl Default for Metrics {
@@ -250,7 +281,11 @@ impl Default for Metrics {
         Self::new()
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
 }
 >>>>>>> b7baee3 (Milestone 6)
+=======
+}
+>>>>>>> origin/master

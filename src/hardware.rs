@@ -11,10 +11,14 @@ use windows::Win32::System::Com::{CoInitializeEx, CoTaskMemFree, CoUninitialize,
 use windows::Win32::System::Registry::{RegGetValueW, HKEY_LOCAL_MACHINE, RRF_RT_REG_SZ};
 use windows::Win32::System::SystemInformation::{
 <<<<<<< HEAD
+<<<<<<< HEAD
     GlobalMemoryStatusEx, GetSystemInfo, GetVersionExW, MEMORYSTATUSEX, OSVERSIONINFOW, SYSTEM_INFO,
 =======
     GlobalMemoryStatusEx, GetSystemInfo, MEMORYSTATUSEX, SYSTEM_INFO,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+    GlobalMemoryStatusEx, GetSystemInfo, GetVersionExW, MEMORYSTATUSEX, OSVERSIONINFOW, SYSTEM_INFO,
+>>>>>>> origin/master
 };
 use windows::Win32::Graphics::Dxgi::{
     CreateDXGIFactory1, IDXGIAdapter1, IDXGIFactory1,
@@ -73,9 +77,12 @@ pub struct AutoConfig {
     pub encoder: String,
     pub crf: u32,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     pub quality_level: u32,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
     pub preset: String,
     pub width: u32,
     pub height: u32,
@@ -149,20 +156,27 @@ impl HardwareInfo {
         let low_end_cpu = self.cpu_threads <= 4 || self.total_ram_mb <= 8192;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         // Prefer hardware encoders when actually available and verified.
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
         if has_nvenc {
             AutoConfig {
                 profile: RecommendedProfile::Performance,
                 encoder: "nvenc".to_string(),
                 crf: 23,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
                 preset: "veryfast".to_string(),
                 width: self.display_width,
                 height: self.display_height,
                 fps: 30,
                 reason: "NVIDIA NVENC hardware encoder detected (using libx264 software encoder)".to_string(),
+<<<<<<< HEAD
 =======
                 quality_level: 23,
                 preset: "fast".to_string(),
@@ -171,6 +185,8 @@ impl HardwareInfo {
                 fps: 30,
                 reason: "NVIDIA NVENC hardware encoder verified available".to_string(),
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
             }
         } else if has_amf {
             AutoConfig {
@@ -178,11 +194,15 @@ impl HardwareInfo {
                 encoder: "amf".to_string(),
                 crf: 23,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
                 preset: "veryfast".to_string(),
                 width: self.display_width,
                 height: self.display_height,
                 fps: 30,
                 reason: "AMD AMF hardware encoder detected (using libx264 software encoder)".to_string(),
+<<<<<<< HEAD
 =======
                 quality_level: 23,
                 preset: "fast".to_string(),
@@ -191,6 +211,8 @@ impl HardwareInfo {
                 fps: 30,
                 reason: "AMD AMF hardware encoder verified available".to_string(),
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
             }
         } else if has_quicksync {
             AutoConfig {
@@ -198,11 +220,15 @@ impl HardwareInfo {
                 encoder: "qsv".to_string(),
                 crf: 23,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
                 preset: "veryfast".to_string(),
                 width: self.display_width,
                 height: self.display_height,
                 fps: 30,
                 reason: "Intel Quick Sync hardware encoder detected (using libx264 software encoder)".to_string(),
+<<<<<<< HEAD
 =======
                 quality_level: 23,
                 preset: "fast".to_string(),
@@ -211,6 +237,8 @@ impl HardwareInfo {
                 fps: 30,
                 reason: "Intel Quick Sync hardware encoder verified available".to_string(),
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
             }
         } else if high_end_cpu {
             AutoConfig {
@@ -218,18 +246,25 @@ impl HardwareInfo {
                 encoder: "libx264".to_string(),
                 crf: 21,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                 quality_level: 21,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
                 preset: "veryfast".to_string(),
                 width: self.display_width,
                 height: self.display_height,
                 fps: 30,
 <<<<<<< HEAD
+<<<<<<< HEAD
                 reason: "High-end CPU detected; software x264 with balanced settings".to_string(),
 =======
                 reason: "No hardware encoder available; high-end CPU, software x264 balanced".to_string(),
 >>>>>>> b7baee3 (Milestone 6)
+=======
+                reason: "High-end CPU detected; software x264 with balanced settings".to_string(),
+>>>>>>> origin/master
             }
         } else if low_end_cpu {
             AutoConfig {
@@ -237,18 +272,25 @@ impl HardwareInfo {
                 encoder: "libx264".to_string(),
                 crf: 24,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                 quality_level: 24,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
                 preset: "veryfast".to_string(),
                 width: self.display_width,
                 height: self.display_height,
                 fps: 30,
 <<<<<<< HEAD
+<<<<<<< HEAD
                 reason: "Low-end CPU/RAM detected; software x264 with performance settings".to_string(),
 =======
                 reason: "No hardware encoder available; low-end CPU/RAM, software x264 performance".to_string(),
 >>>>>>> b7baee3 (Milestone 6)
+=======
+                reason: "Low-end CPU/RAM detected; software x264 with performance settings".to_string(),
+>>>>>>> origin/master
             }
         } else {
             AutoConfig {
@@ -256,18 +298,25 @@ impl HardwareInfo {
                 encoder: "libx264".to_string(),
                 crf: 21,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                 quality_level: 21,
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
                 preset: "veryfast".to_string(),
                 width: self.display_width,
                 height: self.display_height,
                 fps: 30,
 <<<<<<< HEAD
+<<<<<<< HEAD
                 reason: "Default balanced software x264 configuration".to_string(),
 =======
                 reason: "No hardware encoder available; default software x264 balanced".to_string(),
 >>>>>>> b7baee3 (Milestone 6)
+=======
+                reason: "Default balanced software x264 configuration".to_string(),
+>>>>>>> origin/master
             }
         }
     }
@@ -279,6 +328,7 @@ impl HardwareInfo {
         unsafe { GetSystemInfo(&mut sys_info) };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         let cores = sys_info.dwNumberOfProcessors.max(1);
         let threads = cores;
 =======
@@ -288,6 +338,10 @@ impl HardwareInfo {
         // Count physical processor cores via GetLogicalProcessorInformation.
         let physical_cores = Self::count_physical_cores().unwrap_or(logical_processors);
 >>>>>>> b7baee3 (Milestone 6)
+=======
+        let cores = sys_info.dwNumberOfProcessors.max(1);
+        let threads = cores;
+>>>>>>> origin/master
 
         let model = Self::read_registry_cpu_model().unwrap_or_else(|_| "Unknown".to_string());
 
@@ -299,6 +353,7 @@ impl HardwareInfo {
             "Unknown".to_string()
         };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         Ok((manufacturer, model, cores, threads))
 =======
@@ -358,6 +413,9 @@ impl HardwareInfo {
             Ok(core_count)
         }
 >>>>>>> b7baee3 (Milestone 6)
+=======
+        Ok((manufacturer, model, cores, threads))
+>>>>>>> origin/master
     }
 
     fn read_registry_cpu_model() -> Result<String> {
@@ -472,6 +530,9 @@ impl HardwareInfo {
 
     fn detect_windows() -> Result<(String, u32)> {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
         let mut os_info: OSVERSIONINFOW = unsafe { mem::zeroed() };
         os_info.dwOSVersionInfoSize = mem::size_of::<OSVERSIONINFOW>() as u32;
 
@@ -485,6 +546,7 @@ impl HardwareInfo {
             }
             Err(_) => Ok(("Windows".to_string(), 0)),
         }
+<<<<<<< HEAD
 =======
         // GetVersionExW returns a shimmed version (e.g. Windows 8 build 9200)
         // on Windows 10/11 unless the app has a compatibility manifest.
@@ -554,6 +616,8 @@ impl HardwareInfo {
 
         Ok(s.trim().to_string())
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
     }
 
     // ── Display detection ──────────────────────────────────────────
@@ -592,6 +656,7 @@ impl HardwareInfo {
         let mut quicksync = false;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         // Also check Media Foundation MFTs for hardware encoders
         Self::detect_mf_encoders(&mut nvenc, &mut amf, &mut quicksync)?;
@@ -619,6 +684,8 @@ impl HardwareInfo {
         quicksync: &mut bool,
     ) -> Result<()> {
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
         unsafe {
             let _ = CoInitializeEx(Some(ptr::null_mut()), COINIT_APARTMENTTHREADED);
             let _ = MFStartup(MF_VERSION, 0);
@@ -649,6 +716,7 @@ impl HardwareInfo {
                         if lower.contains("h264") || lower.contains("hevc") {
                             if lower.contains("nvidia") || lower.contains("nvenc") {
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 nvenc = true;
                             } else if lower.contains("amd") || lower.contains("amf") {
                                 amf = true;
@@ -657,15 +725,24 @@ impl HardwareInfo {
                             } else if lower.contains("amd") || lower.contains("amf") {
                                 *amf = true;
 >>>>>>> b7baee3 (Milestone 6)
+=======
+                                nvenc = true;
+                            } else if lower.contains("amd") || lower.contains("amf") {
+                                amf = true;
+>>>>>>> origin/master
                             } else if lower.contains("intel")
                                 || lower.contains("quick")
                                 || lower.contains("qsv")
                             {
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 quicksync = true;
 =======
                                 *quicksync = true;
 >>>>>>> b7baee3 (Milestone 6)
+=======
+                                quicksync = true;
+>>>>>>> origin/master
                             }
                         }
                     }
@@ -681,6 +758,9 @@ impl HardwareInfo {
         unsafe { MFShutdown() }?;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
         if let Ok(ffmpeg_encoders) = Self::detect_ffmpeg_encoders() {
             let lower = ffmpeg_encoders.to_lowercase();
             if lower.contains("nvenc") {
@@ -696,6 +776,7 @@ impl HardwareInfo {
 
         let any_hw = nvenc || amf || quicksync;
         Ok((any_hw, nvenc, amf, quicksync))
+<<<<<<< HEAD
 =======
         Ok(())
     }
@@ -725,6 +806,8 @@ impl HardwareInfo {
             Err(_) => false,
         }
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
     }
 
     fn get_activate_name(
@@ -752,6 +835,9 @@ impl HardwareInfo {
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/master
 
     fn detect_ffmpeg_encoders() -> Result<String> {
         let output = std::process::Command::new("ffmpeg")
@@ -761,6 +847,9 @@ impl HardwareInfo {
 
         Ok(String::from_utf8_lossy(&output.stdout).to_string())
     }
+<<<<<<< HEAD
 =======
 >>>>>>> b7baee3 (Milestone 6)
+=======
+>>>>>>> origin/master
 }
